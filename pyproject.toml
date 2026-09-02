@@ -1,0 +1,22 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "firstkernel"
+version = "0.1.0"
+description = "A faster fused-MoE layer for vLLM on H100: activation fusion, atomic top-k reduction, TMA weight loads"
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "Apache-2.0" }
+
+# torch, triton, and vllm are deliberately not pinned here: the kernel targets
+# whatever vLLM 0.28.x environment you already run, and pulling a second torch
+# into that environment is worse than trusting yours.
+dependencies = []
+
+[tool.setuptools]
+packages = ["firstkernel"]
+
+[tool.setuptools.package-data]
+firstkernel = ["configs/*.json"]

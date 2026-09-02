@@ -1,0 +1,133 @@
+{
+ "model": {
+  "name": "Qwen/Qwen3-30B-A3B",
+  "hidden_size": 2048,
+  "moe_intermediate_size": 768,
+  "num_experts": 128,
+  "top_k": 8,
+  "num_layers": 48,
+  "dtype": "bfloat16"
+ },
+ "problems": [
+  {
+   "regime": "decode",
+   "M": 64,
+   "N": 1536,
+   "K": 2048,
+   "E": 128,
+   "top_k": 8,
+   "launches": 6096,
+   "vllm_config": {
+    "BLOCK_SIZE_M": 32,
+    "BLOCK_SIZE_N": 64,
+    "BLOCK_SIZE_K": 128,
+    "GROUP_SIZE_M": 1,
+    "SPLIT_K": 1,
+    "num_warps": 4,
+    "num_stages": 3
+   }
+  },
+  {
+   "regime": "decode",
+   "M": 512,
+   "N": 2048,
+   "K": 768,
+   "E": 128,
+   "top_k": 1,
+   "launches": 6096,
+   "vllm_config": {
+    "BLOCK_SIZE_M": 32,
+    "BLOCK_SIZE_N": 64,
+    "BLOCK_SIZE_K": 128,
+    "GROUP_SIZE_M": 1,
+    "SPLIT_K": 1,
+    "num_warps": 4,
+    "num_stages": 3
+   }
+  },
+  {
+   "regime": "prefill",
+   "M": 16384,
+   "N": 1536,
+   "K": 2048,
+   "E": 128,
+   "top_k": 8,
+   "launches": 192,
+   "vllm_config": {
+    "BLOCK_SIZE_M": 128,
+    "BLOCK_SIZE_N": 128,
+    "BLOCK_SIZE_K": 64,
+    "GROUP_SIZE_M": 1,
+    "SPLIT_K": 1,
+    "num_warps": 8,
+    "num_stages": 3
+   }
+  },
+  {
+   "regime": "prefill",
+   "M": 131072,
+   "N": 2048,
+   "K": 768,
+   "E": 128,
+   "top_k": 1,
+   "launches": 192,
+   "vllm_config": {
+    "BLOCK_SIZE_M": 128,
+    "BLOCK_SIZE_N": 128,
+    "BLOCK_SIZE_K": 64,
+    "GROUP_SIZE_M": 1,
+    "SPLIT_K": 1,
+    "num_warps": 8,
+    "num_stages": 3
+   }
+  },
+  {
+   "regime": "decode",
+   "M": 8192,
+   "N": 1536,
+   "K": 2048,
+   "E": 128,
+   "top_k": 8,
+   "launches": 48,
+   "vllm_config": {
+    "BLOCK_SIZE_M": 128,
+    "BLOCK_SIZE_N": 128,
+    "BLOCK_SIZE_K": 64,
+    "GROUP_SIZE_M": 1,
+    "SPLIT_K": 1,
+    "num_warps": 8,
+    "num_stages": 3
+   }
+  },
+  {
+   "regime": "decode",
+   "M": 65536,
+   "N": 2048,
+   "K": 768,
+   "E": 128,
+   "top_k": 1,
+   "launches": 48,
+   "vllm_config": {
+    "BLOCK_SIZE_M": 128,
+    "BLOCK_SIZE_N": 128,
+    "BLOCK_SIZE_K": 64,
+    "GROUP_SIZE_M": 1,
+    "SPLIT_K": 1,
+    "num_warps": 8,
+    "num_stages": 3
+   }
+  }
+ ],
+ "split": {
+  "train_m": [
+   64,
+   512,
+   16384,
+   65536
+  ],
+  "holdout_m": [
+   8192,
+   131072
+  ]
+ }
+}

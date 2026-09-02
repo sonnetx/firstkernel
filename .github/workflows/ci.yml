@@ -1,0 +1,28 @@
+name: ci
+on:
+  push:
+  pull_request:
+
+# GPU tests cannot run here; this checks what a CPU runner can check.
+# The real acceptance test is `python -m firstkernel.selftest` on an H100.
+jobs:
+  static:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: compile all sources
+        run: python -m compileall -q firstkernel harness kernels src
+      - name: package builds and config table ships
+        run: |
+          pip install build >/dev/null
+          python -m build --wheel >/dev/null
+          python - <<'EOF'
+          import zipfile, glob, sys
+          wheel = glob.glob("dist/*.whl")[0]
+          names = zipfile.ZipFile(wheel).namelist()
+          assert any("configs/E=128,N=768" in n for n in names), names
+          print("wheel contains the tuned config table")
+          EOF
