@@ -12,8 +12,9 @@ held-out shapes with entropy-drawn seeds: **1.037x at the 64-token decode
 shape, 1.216x at the 16,384-token prefill shape**. Integrated into the engine
 with CUDA graphs on: **prefill throughput +11.6%, mixed +2.7%, decode ~+2%**,
 with outputs token-identical to stock across 2,048 greedy decode steps.
-Roughly half of a kernel-level win survives the engine, and the study in
-[docs/article.md](docs/article.md) is largely about why the other half of most
+Roughly half of a kernel-level win survives the engine. The short public
+writeup is <https://sonnetx.github.io/firstkernel/>, and the study in
+[docs/article.md](docs/article.md) is about why the other half of most
 published kernel numbers was never there.
 
 ## Quick start

@@ -57,4 +57,13 @@ That is not an online-serving result. The engine benchmark uses fixed batches an
 
 The project used six agent runs, roughly 1.1 million output tokens, 34 candidate evaluations, and about nine H100-hours. The agents found useful kernel changes. The harder part was building an evaluation that could distinguish those changes from noise, selection bias, and a flattering benchmark boundary.
 
-Code, raw results, and SLURM jobs: [LINK]
+Code: https://github.com/sonnetx/firstkernel
+Writeup: https://sonnetx.github.io/firstkernel/
+
+## Post
+
+The kernel got 22% faster. vLLM got 12%.
+
+Agents fused the MoE layer in Qwen3-30B from five launches to two. At prefill the layer was 1.22× and vLLM was 1.12×. About half the gain survived. The bigger numbers were wrong.
+
+https://sonnetx.github.io/firstkernel/
