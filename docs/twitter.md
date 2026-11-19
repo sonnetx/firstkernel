@@ -62,8 +62,8 @@ Writeup: https://sonnetx.github.io/firstkernel/
 
 ## Post
 
-The kernel got 22% faster. vLLM got 12%.
+A fused MoE layer for vLLM on H100, and a bench for the next one.
 
-Agents fused the MoE layer in Qwen3-30B from five launches to two. At prefill the layer was 1.22× and vLLM was 1.12×. About half the gain survived. The bigger numbers were wrong.
+Install it, or replace kernel.py. The harness grades you against an fp32 reference. On Qwen3-30B, prefill was 1.22× at the layer and 1.12× in the engine.
 
 https://sonnetx.github.io/firstkernel/
